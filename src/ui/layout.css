@@ -1,0 +1,356 @@
+/* ==========================================================================
+   Page layout: container, top bar, headings, panels, groups and detail pages
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.main {
+  padding-block: var(--s-6) var(--s-8);
+}
+
+.section {
+  margin-top: var(--s-7);
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--t-lg);
+  font-weight: 700;
+  font-stretch: 88%;
+  line-height: 1.2;
+}
+
+.section-head__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.section-head__link {
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  text-underline-offset: 3px;
+}
+
+.section-head__link:hover {
+  color: var(--ink);
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.panel {
+  padding: var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+
+.panel__title {
+  font-size: var(--t-sm);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-bottom: var(--s-5);
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: var(--t-2xl);
+  font-weight: 750;
+  font-stretch: 82%;
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.page-intro {
+  max-width: 60ch;
+  margin-top: var(--s-2);
+  color: var(--ink-2);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  min-height: var(--topbar-h);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 800;
+  font-stretch: 80%;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.brand__mark {
+  display: grid;
+  gap: 2px;
+  width: 20px;
+}
+
+.brand__mark span {
+  height: 3px;
+  border-radius: 2px;
+  background: var(--pc);
+}
+
+.nav {
+  display: flex;
+  gap: var(--s-1);
+}
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-left: auto;
+}
+
+.nav a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s-2);
+  padding: 6px 14px;
+  border-radius: var(--r-pill);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  color: var(--ink-2);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav a:hover {
+  color: var(--ink);
+  background: var(--surface-2);
+}
+
+.nav a[aria-current='page'] {
+  color: var(--ink);
+  background: var(--surface-3);
+}
+
+.nav__count {
+  font-size: var(--t-xs);
+  font-weight: 400;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.group {
+  margin-top: var(--s-7);
+}
+
+.page-head + .group {
+  margin-top: var(--s-5);
+}
+
+.section-title__count {
+  margin-left: var(--s-3);
+  font-family: var(--font-body);
+  font-size: var(--t-sm);
+  font-weight: 400;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.completed {
+  margin-top: var(--s-6);
+}
+
+.completed summary {
+  width: fit-content;
+  margin-bottom: var(--s-3);
+  font-weight: 700;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.completed summary:hover {
+  color: var(--ink);
+}
+
+.completed > .btn {
+  margin-top: var(--s-3);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: var(--s-5);
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  text-underline-offset: 3px;
+}
+
+.back-link:hover {
+  color: var(--ink);
+}
+
+.detail-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-bottom: var(--s-6);
+  padding-left: var(--s-5);
+  border-left: var(--tab) solid var(--pc);
+}
+
+.detail-head__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+  margin-top: var(--s-3);
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+
+.detail-head__actions {
+  display: flex;
+  gap: var(--s-2);
+}
+
+.detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  align-items: start;
+  gap: var(--s-6);
+}
+
+.detail__main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.detail__main .completed {
+  margin-top: var(--s-4);
+}
+
+.detail__aside {
+  position: sticky;
+  top: calc(var(--topbar-h) + var(--s-5));
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress__track {
+  height: 6px;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--surface-3);
+}
+
+.progress__bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--ink);
+  transition: width 0.3s ease-out;
+}
+
+.progress__label {
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: var(--s-6) var(--s-5);
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--r-md);
+  text-align: center;
+  color: var(--ink-2);
+}
+
+.empty__title {
+  max-width: 48ch;
+}
+
+.empty a {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+@media (max-width: 960px) {
+  .detail {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .detail__aside {
+    position: static;
+    order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar__inner {
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-4);
+    padding-block: 10px;
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+    margin-inline: -14px;
+    overflow-x: auto;
+  }
+
+  .main {
+    padding-top: var(--s-5);
+  }
+
+  .section {
+    margin-top: var(--s-6);
+  }
+}

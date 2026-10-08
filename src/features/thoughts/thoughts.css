@@ -1,0 +1,233 @@
+/* ==========================================================================
+   Thoughts: neutral on purpose, since they have no priority
+   ========================================================================== */
+.box--thought {
+  --pc: var(--line-strong);
+}
+
+.box--note {
+  --pc: var(--ink-3);
+}
+
+.box--thought {
+  padding: var(--tab) 0 0;
+}
+
+.box--thought .box__foot {
+  margin: 0 var(--s-5) var(--s-4);
+}
+
+.box__hit {
+  flex: 1;
+  display: flex;
+  padding: var(--s-5) var(--s-5) 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.box__thought {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 1.0625rem;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.box__note--long {
+  -webkit-line-clamp: 4;
+  white-space: pre-line;
+}
+
+.capture {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-lg);
+}
+
+.capture:has(.capture__input:focus-visible) {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.capture__input {
+  min-height: 96px;
+  padding: var(--s-4) var(--s-4) var(--s-2);
+  border: 0;
+  background: transparent;
+  outline: none;
+  resize: vertical;
+  font-size: 1.0625rem;
+}
+
+.capture__input::placeholder {
+  color: var(--ink-3);
+}
+
+.capture__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-2) var(--s-2) var(--s-2) var(--s-4);
+}
+
+.capture__hint {
+  font-size: var(--t-xs);
+  color: var(--ink-3);
+}
+
+.thought-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: var(--s-3);
+}
+
+.thought {
+  position: relative;
+  display: flex;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.thought:hover {
+  background: var(--surface-2);
+}
+
+.thought__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.thought__text {
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.thought__when {
+  margin-top: auto;
+  font-size: var(--t-xs);
+  color: var(--ink-3);
+}
+
+.sources {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.sources li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: var(--s-3);
+  border-left: 2px solid var(--line-strong);
+}
+
+.sources__text {
+  color: var(--ink-2);
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.sources__when {
+  font-size: var(--t-xs);
+  color: var(--ink-3);
+}
+
+.detail-head--neutral {
+  --pc: var(--ink-3);
+}
+
+.detail__text {
+  max-width: 68ch;
+  font-size: 1.0625rem;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 640px) {
+  .capture__hint {
+    display: none;
+  }
+}
+
+.box__consolidate {
+  margin-left: auto;
+}
+
+/* Consolidate dialog: the thoughts are shown for reference above an empty note */
+.consolidate__thoughts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  max-height: 40vh;
+  overflow-y: auto;
+  padding: var(--s-4);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+
+.consolidate__more summary {
+  width: fit-content;
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.consolidate__more summary:hover {
+  color: var(--ink);
+}
+
+.consolidate__more ul {
+  list-style: none;
+  margin: var(--s-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.consolidate__option {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-2);
+  font-size: var(--t-sm);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.consolidate__option input {
+  margin-top: 3px;
+}
+
+.consolidate__option span {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,292 @@
+/* ==========================================================================
+   Design tokens
+   Colour means priority and nothing else. Every other surface is a step on
+   one blue-black neutral scale, so the priority colours always stand out.
+   ========================================================================== */
+:root {
+  /* Neutrals, darkest to lightest */
+  --bg: #0e1218;
+  --surface: #161b23;
+  --surface-2: #1d232d;
+  --surface-3: #262d39;
+  --line: #262e3a;
+  --line-strong: #3a4452;
+
+  /* Ink, strongest to faintest (all pass WCAG AA on --surface) */
+  --ink: #eef1f5;
+  --ink-2: #aeb6c2;
+  --ink-3: #848d9c;
+
+  --focus-ring: #7c9dff;
+  --danger: #ff8a84;
+
+  /* Priority */
+  --p-urgent: #ff5f57;
+  --p-high: #ff9f45;
+  --p-medium: #f2cc4a;
+  --p-low: #4dbba9;
+  --p-someday: #9aa4b6;
+
+  /* Type */
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --t-xs: 0.8125rem;
+  --t-sm: 0.875rem;
+  --t-md: 1rem;
+  --t-lg: 1.25rem;
+  --t-xl: 1.5rem;
+  --t-2xl: clamp(2rem, 3.5vw, 2.625rem);
+  --t-3xl: clamp(2.75rem, 6vw, 4.25rem);
+
+  /* Space (4px base) */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 72px;
+
+  /* Shape */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-pill: 999px;
+  --tab: 5px; /* thickness of the priority colour on rows and boxes */
+
+  /* Layout */
+  --content-max: 1320px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --topbar-h: 64px;
+
+  color-scheme: dark;
+}
+
+[data-priority='urgent'] { --pc: var(--p-urgent); }
+[data-priority='high'] { --pc: var(--p-high); }
+[data-priority='medium'] { --pc: var(--p-medium); }
+[data-priority='low'] { --pc: var(--p-low); }
+[data-priority='someday'] { --pc: var(--p-someday); }
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 var(--t-md) / 1.5 var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--focus-ring) 40%, transparent);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   Primitives
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  padding: var(--s-2) var(--s-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.btn:hover {
+  background: var(--surface-3);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--ink-2);
+  border-color: var(--ink-2);
+}
+
+.btn--quiet {
+  border-color: transparent;
+  background: transparent;
+  color: var(--ink-2);
+}
+
+.btn--quiet:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+
+.btn--danger {
+  border-color: transparent;
+  background: transparent;
+  color: var(--danger);
+}
+
+.btn--danger:hover {
+  background: color-mix(in srgb, var(--p-urgent) 14%, transparent);
+}
+
+.btn--solid-danger {
+  border-color: var(--p-urgent);
+  background: var(--p-urgent);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+.btn--solid-danger:hover {
+  background: color-mix(in srgb, var(--p-urgent) 85%, var(--ink));
+}
+
+.btn--sm {
+  padding: 6px var(--s-3);
+  font-size: var(--t-xs);
+}
+
+.input {
+  width: 100%;
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  font-size: var(--t-sm);
+}
+
+.input::placeholder {
+  color: var(--ink-3);
+}
+
+textarea.input {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.input:focus-visible {
+  outline-offset: 0;
+  border-color: var(--focus-ring);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.field__label {
+  padding: 0;
+  font-size: var(--t-sm);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 9px 2px 7px;
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--pc, var(--ink-3)) 20%, transparent);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.tag__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pc);
+}
+
+.due {
+  white-space: nowrap;
+}
+
+.due--today {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.due--overdue {
+  font-weight: 700;
+  color: var(--danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

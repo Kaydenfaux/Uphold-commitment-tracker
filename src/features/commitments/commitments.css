@@ -1,0 +1,217 @@
+/* ==========================================================================
+   Commitments: box extras, steps and drag and drop
+   ========================================================================== */
+.box__next {
+  display: flex;
+  gap: var(--s-2);
+  min-width: 0;
+  margin-top: auto;
+  padding-top: var(--s-3);
+  font-size: var(--t-sm);
+}
+
+.box__next-label {
+  flex: none;
+  color: var(--ink-3);
+}
+
+.box__next-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.box__meter {
+  flex: 1 1 40px;
+  height: 4px;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--surface-3);
+}
+
+.box__meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--ink);
+}
+
+.box[data-done='true'] {
+  opacity: 0.55;
+}
+
+/* Like thought boxes: the link fills the box and the footer sits below it */
+.box--commitment {
+  padding: var(--tab) 0 0;
+}
+
+.box__link {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-5) var(--s-5) 0;
+  text-decoration: none;
+}
+
+/* Two rows: priority, progress and steps, then the date and the Complete / Reopen button */
+.box--commitment .box__foot {
+  flex-direction: column;
+  align-items: stretch;
+  margin: var(--s-2) var(--s-5) var(--s-4);
+}
+
+.box__stats,
+.box__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+}
+
+.box__stats {
+  flex-wrap: wrap;
+}
+
+.box__action {
+  margin-left: auto;
+}
+
+.step-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 52px;
+  padding: var(--s-2) var(--s-2) var(--s-2) var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+}
+
+.step__label {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  cursor: pointer;
+}
+
+.step__title {
+  overflow-wrap: anywhere;
+}
+
+.step[data-done='true'] {
+  background: transparent;
+}
+
+.step[data-done='true'] .step__title {
+  color: var(--ink-3);
+  text-decoration: line-through;
+}
+
+.check {
+  appearance: none;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 2px solid var(--pc);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.check:hover {
+  background: color-mix(in srgb, var(--pc) 25%, transparent);
+}
+
+.check:checked {
+  background: var(--pc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2 5 8.6l4.5-5' fill='none' stroke='%230E1218' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 12px no-repeat;
+}
+
+/* Drop targets: outlined while a commitment is being dragged, stronger under the pointer */
+.drop {
+  margin-inline: calc(var(--s-3) * -1);
+  padding: var(--s-3);
+  border: 1.5px dashed transparent;
+  border-radius: var(--r-lg);
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.is-dragging .drop {
+  border-color: var(--line-strong);
+}
+
+.is-dragging .drop[data-over='true'] {
+  border-color: var(--ink-2);
+  background: var(--surface);
+}
+
+/* The real box follows the pointer while a dashed placeholder shows where it will land */
+.box-item[data-lifted='true'] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.box-item[data-lifted='true'] .box {
+  background: color-mix(in srgb, var(--pc) 11%, var(--surface));
+  border-color: color-mix(in srgb, var(--pc) 40%, var(--line));
+  box-shadow: 0 24px 48px -12px rgb(0 0 0 / 0.65);
+}
+
+.box-item[data-lifted='true'] .box__delete {
+  display: none;
+}
+
+.box-placeholder {
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--r-lg);
+}
+
+.is-dragging-box {
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* No text selection or iOS link preview getting in the way of starting a drag */
+.drop .box {
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.drop__hint {
+  padding: var(--s-5);
+  text-align: center;
+  color: var(--ink-3);
+}
+
+.group.drop {
+  margin-top: calc(var(--s-7) - var(--s-3));
+}
+
+.page-head + .group.drop {
+  margin-top: var(--s-2);
+}
+
+.detail__note {
+  color: var(--ink-2);
+  white-space: pre-line;
+}
+
+.detail__add-note {
+  align-self: flex-start;
+  margin-left: calc(var(--s-3) * -1);
+}

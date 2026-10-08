@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Archive: kept commitments in one collapsible section per category
+   ========================================================================== */
+.archive-group {
+  border-top: 1px solid var(--line);
+}
+
+.archive-group:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.archive-group > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding-block: var(--s-4);
+  list-style: none;
+  cursor: pointer;
+}
+
+.archive-group > summary::-webkit-details-marker {
+  display: none;
+}
+
+.archive-group > summary::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--ink-3);
+  border-bottom: 2px solid var(--ink-3);
+  transform: rotate(-45deg);
+  transition: transform 0.15s;
+}
+
+.archive-group[open] > summary::before {
+  transform: rotate(45deg);
+}
+
+.archive-group > summary:hover .section-title {
+  color: var(--ink-2);
+}
+
+.archive-group[open] > .box-grid {
+  padding-bottom: var(--s-5);
+}
+
+/* Everything here is kept, so there's no need to fade it like on other pages */
+.archive-group .box[data-done="true"] {
+  opacity: 1;
+}

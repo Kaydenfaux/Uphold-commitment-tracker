@@ -1,0 +1,15 @@
+node_modules
+dist
+*.local
+*.log
+
+.env
+.env.*
+.vercel
+
+.claude/tdd-guard/
+
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store

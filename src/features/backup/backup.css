@@ -1,0 +1,21 @@
+/* ==========================================================================
+   Backup: export and import of all data as a JSON file
+   ========================================================================== */
+.backup-btn {
+  color: var(--ink-2);
+}
+
+.backup-btn:hover {
+  color: var(--ink);
+}
+
+.backup__last {
+  font-size: var(--t-sm);
+  font-weight: 700;
+  color: var(--ink-3);
+}
+
+.backup__error {
+  font-size: var(--t-sm);
+  color: var(--danger);
+}
