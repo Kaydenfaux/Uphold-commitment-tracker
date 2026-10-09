@@ -2,11 +2,13 @@ import { useEffect, useMemo, useReducer } from 'react'
 import { loadState, saveState } from '../lib/storage.js'
 import { StoreContext } from './StoreContext.js'
 import { reducer } from './reducer.js'
-import { createSeedState } from './seed.js'
+
+/** @returns {import('../lib/model.js').State} */
+const createEmptyState = () => ({ categories: [], commitments: [], thoughts: [] })
 
 /** @param {{ children: import('react').ReactNode }} props */
 export function StoreProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, null, () => loadState() ?? createSeedState())
+  const [state, dispatch] = useReducer(reducer, null, () => loadState() ?? createEmptyState())
 
   useEffect(() => {
     saveState(state)
