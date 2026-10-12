@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { isConsolidated } from '../../lib/model.js'
-import { compareByOrder } from '../../lib/sort.js'
+import { compareByUrgency } from '../../lib/sort.js'
 import { useStore } from '../../store/useStore.js'
 import { EmptyState } from '../../ui/EmptyState.jsx'
 import { AddCommitmentButton } from '../commitments/AddCommitmentButton.jsx'
@@ -20,7 +20,7 @@ export function HomeView() {
   const { state } = useStore()
   const [editing, setEditing] = useState(/** @type {import('../../lib/model.js').Thought | null} */ (null))
 
-  const active = state.commitments.filter((c) => !c.done).sort(compareByOrder)
+  const active = state.commitments.filter((c) => !c.done).sort(compareByUrgency)
   const loose = state.thoughts.filter((t) => !isConsolidated(t)).sort((a, b) => b.createdAt - a.createdAt)
   const now = new Date()
 

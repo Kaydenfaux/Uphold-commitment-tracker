@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { formatMoment } from '../../lib/dates.js'
-import { createThought, isConsolidated } from '../../lib/model.js'
+import { TEXT_LIMIT, createThought, isConsolidated } from '../../lib/model.js'
 import { useStore } from '../../store/useStore.js'
+import { CharCount } from '../../ui/CharCount.jsx'
 import { Dialog } from '../../ui/Dialog.jsx'
 import { Field } from '../../ui/Field.jsx'
 
@@ -97,10 +98,11 @@ export function ConsolidateDialog({ thought, onClose }) {
             </select>
           </Field>
         )}
-        <Field label="Title">
+        <Field label="Title" aside={<CharCount length={title.length} max={TEXT_LIMIT} />}>
           <input
             className="input"
             required
+            maxLength={TEXT_LIMIT}
             placeholder="Sum up the thought in a few words."
             value={title}
             onChange={(e) => setTitle(e.target.value)}

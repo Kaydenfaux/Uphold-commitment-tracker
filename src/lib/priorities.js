@@ -19,6 +19,10 @@ export function isPriorityId(id) {
   return Object.hasOwn(RANK, id)
 }
 
+/** Lower is more pressing; unknown ids rank as the default. @param {string} id */
+export function priorityRank(id) {
+  return RANK[id] ?? RANK[DEFAULT_PRIORITY]
+}
 
 /** @param {string} id */
 export function priorityLabel(id) {

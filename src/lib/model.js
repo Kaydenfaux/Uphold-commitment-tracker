@@ -3,8 +3,10 @@ import { DEFAULT_PRIORITY } from './priorities.js'
 /**
  * @typedef {import('./priorities.js').PriorityId} PriorityId
  *
- * A user-made group for commitments, e.g. "Code" or "Blender".
- * @typedef {{ id: string, name: string }} Category
+ * A user-made group for commitments, e.g. "Code" or "Blender". Categories
+ * show in array order, which the user sets by dragging. `collapsed` hides
+ * its commitments on the Commitments page, leaving only the heading.
+ * @typedef {{ id: string, name: string, collapsed: boolean }} Category
  *
  * @typedef {{ id: string, title: string, done: boolean }} Step
  *
@@ -34,6 +36,9 @@ import { DEFAULT_PRIORITY } from './priorities.js'
  * @typedef {{ categories: Category[], commitments: Commitment[], thoughts: Thought[] }} State
  * @typedef {'categories' | 'commitments' | 'thoughts'} Collection
  */
+
+/** Commitment titles, loose thoughts and note titles stay short enough to scan. */
+export const TEXT_LIMIT = 100
 
 // crypto.randomUUID is unavailable over plain http on a LAN IP (e.g. testing
 // on a phone via `vite --host`), so use a simple unique-enough id instead.
@@ -69,7 +74,7 @@ export function createCommitment(fields = {}) {
  * @returns {Category}
  */
 export function createCategory(fields = {}) {
-  return { id: createId(), name: '', ...fields }
+  return { id: createId(), name: '', collapsed: false, ...fields }
 }
 
 /**

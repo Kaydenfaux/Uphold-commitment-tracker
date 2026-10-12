@@ -14,9 +14,20 @@ import { createContext } from 'react'
  *   heights: Record<string, number>
  * }} DragState
  *
+ * A category being dragged by its heading. Categories stack vertically, so
+ * there's always a spot: before `beforeId`, or at the end when it's null.
+ * @typedef {{
+ *   id: string, x: number, y: number, offsetX: number, offsetY: number,
+ *   width: number, beforeId: string | null
+ * }} CategoryDragState
+ *
+ * @typedef {(e: import('react').PointerEvent<HTMLElement>, id: string) => void} StartDrag
+ *
  * @typedef {{
  *   drag: DragState | null,
- *   startDrag: (e: import('react').PointerEvent<HTMLElement>, id: string) => void
+ *   categoryDrag: CategoryDragState | null,
+ *   startDrag: StartDrag,
+ *   startCategoryDrag: StartDrag
  * }} DragValue
  */
 

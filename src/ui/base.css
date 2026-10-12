@@ -240,6 +240,24 @@ textarea.input {
   min-width: 0;
 }
 
+.field__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.char-count {
+  font-size: var(--t-xs);
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.char-count[data-full='true'] {
+  color: var(--ink);
+  font-weight: 700;
+}
+
 .field__label {
   padding: 0;
   font-size: var(--t-sm);
