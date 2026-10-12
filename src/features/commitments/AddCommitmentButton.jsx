@@ -8,7 +8,7 @@ import { CommitmentDialog } from './CommitmentDialog.jsx'
  */
 export function AddCommitmentButton({ variant = 'button', categoryId = '', label }) {
   const [creating, setCreating] = useState(/** @type {import('../../lib/model.js').Commitment | null} */ (null))
-  const open = () => setCreating(createCommitment({ categoryId }))
+  const open = () => setCreating(createCommitment({ categoryId, title: 'I will ' }))
 
   return (
     <>

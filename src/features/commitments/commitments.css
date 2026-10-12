@@ -212,17 +212,22 @@
   margin-bottom: 0;
 }
 
-/* Closed categories next to each other read as one list split by thin lines,
-   like the Archive. Pseudo-element lines leave the dashed drag outline free. */
-.drop[data-collapsed='true'] {
+/* Categories stack into one list split by thin lines, like the Archive, whether
+   open or closed. Pseudo-element lines leave the dashed drag outline free. `~`
+   rather than `+` so the category ghost between sections mid-drag doesn't break it. */
+.drop:has(> .section-head) {
   position: relative;
 }
 
-.drop[data-collapsed='true'] + .drop[data-collapsed='true'] {
+.drop:has(> .section-head) ~ .drop:has(> .section-head) {
   margin-top: 0;
 }
 
-.drop[data-collapsed='true']::after {
+.drop:has(> .section-head):not([data-collapsed='true']) {
+  padding-bottom: var(--s-5);
+}
+
+.drop:has(> .section-head)::after {
   content: "";
   position: absolute;
   inset: 0 var(--s-3);
@@ -230,7 +235,7 @@
   pointer-events: none;
 }
 
-.drop[data-collapsed='true']:not(:has(+ .drop[data-collapsed='true']))::after {
+.drop:has(> .section-head):not(:has(~ .drop > .section-head))::after {
   border-bottom: 1px solid var(--line);
 }
 
@@ -288,16 +293,13 @@
   background: var(--ink-2);
 }
 
+/* Sections touch, so the line sits on the separator between them */
 .drop[data-insert='before']::before {
-  top: calc((var(--s-7) - var(--s-3)) / -2 - 3px);
-}
-
-.page-head + .drop[data-insert='before']::before {
-  top: calc(var(--s-2) / -2 - 3px);
+  top: -3px;
 }
 
 .drop[data-insert='after']::before {
-  bottom: calc((var(--s-7) - var(--s-3)) / -2 - 3px);
+  bottom: -3px;
 }
 
 .category-ghost {
