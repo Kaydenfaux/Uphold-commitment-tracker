@@ -52,6 +52,8 @@ export function CommitmentDialog({ commitment, onClose, onDeleted }) {
             placeholder="e.g. Find a job, Start freelancing"
             value={draft.title}
             onChange={(e) => set({ title: e.target.value })}
+            // New commitments start with "I will ", so put the caret after it rather than before.
+            onFocus={isNew ? (e) => e.target.setSelectionRange(e.target.value.length, e.target.value.length) : undefined}
           />
         </Field>
         <Field label="Why it matters (optional)">
