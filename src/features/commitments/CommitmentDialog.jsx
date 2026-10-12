@@ -1,5 +1,7 @@
 import { useState } from 'react'
+import { TEXT_LIMIT } from '../../lib/model.js'
 import { useStore } from '../../store/useStore.js'
+import { CharCount } from '../../ui/CharCount.jsx'
 import { Dialog } from '../../ui/Dialog.jsx'
 import { Field } from '../../ui/Field.jsx'
 import { PriorityPicker } from '../../ui/PriorityPicker.jsx'
@@ -42,10 +44,11 @@ export function CommitmentDialog({ commitment, onClose, onDeleted }) {
   return (
     <Dialog title={isNew ? 'Make a commitment' : 'Edit commitment'} onClose={onClose}>
       <form className="form" onSubmit={handleSave}>
-        <Field label="What are you committing to?">
+        <Field label="What are you committing to?" aside={<CharCount length={draft.title.length} max={TEXT_LIMIT} />}>
           <input
             className="input"
             required
+            maxLength={TEXT_LIMIT}
             placeholder="e.g. Find a job, Start freelancing"
             value={draft.title}
             onChange={(e) => set({ title: e.target.value })}

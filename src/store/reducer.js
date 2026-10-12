@@ -15,6 +15,7 @@ import { compareByOrder } from '../lib/sort.js'
  *   | { type: 'removeCategory', id: string }
  *   | { type: 'setCommitmentDone', id: string, done: boolean }
  *   | { type: 'moveCommitment', id: string, categoryId: string, beforeId: string | null }
+ *   | { type: 'moveCategory', id: string, beforeId: string | null }
  *   | { type: 'toggleStep', commitmentId: string, stepId: string }
  *   | { type: 'consolidate', ids: string[], note: Thought }
  *   | { type: 'split', id: string, thoughts: Thought[] }
@@ -101,6 +102,15 @@ export function reducer(state, action) {
         ...state,
         commitments: mapCommitment(state.commitments, action.id, (c) => ({ ...c, categoryId: action.categoryId, order })),
       }
+    }
+
+    case 'moveCategory': {
+      const moving = state.categories.find((s) => s.id === action.id)
+      if (!moving) return state
+      const rest = state.categories.filter((s) => s.id !== action.id)
+      const i = action.beforeId ? rest.findIndex((s) => s.id === action.beforeId) : -1
+      rest.splice(i === -1 ? rest.length : i, 0, moving)
+      return { ...state, categories: rest }
     }
 
     case 'toggleStep':

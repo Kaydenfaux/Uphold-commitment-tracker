@@ -32,6 +32,18 @@ function daysFromToday(iso) {
 }
 
 /**
+ * Due within a calendar month from today, or already overdue.
+ * @param {string} due
+ */
+export function isDueWithinMonth(due) {
+  if (!due) return false
+  const limit = new Date()
+  limit.setMonth(limit.getMonth() + 1)
+  // YYYY-MM-DD strings sort the same as the dates they stand for.
+  return due <= toISODate(limit)
+}
+
+/**
  * @param {string} due
  * @returns {'overdue' | 'today' | 'soon' | 'later' | ''}
  */

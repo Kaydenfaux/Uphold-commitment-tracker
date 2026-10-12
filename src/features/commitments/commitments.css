@@ -206,6 +206,117 @@
   margin-top: var(--s-2);
 }
 
+/* Category headings: click to open or close, drag to move the category.
+   The chevron matches the Archive's: pointing right when closed, down when open. */
+.drop[data-collapsed='true'] > .section-head {
+  margin-bottom: 0;
+}
+
+/* Closed categories next to each other read as one list split by thin lines,
+   like the Archive. Pseudo-element lines leave the dashed drag outline free. */
+.drop[data-collapsed='true'] {
+  position: relative;
+}
+
+.drop[data-collapsed='true'] + .drop[data-collapsed='true'] {
+  margin-top: 0;
+}
+
+.drop[data-collapsed='true']::after {
+  content: "";
+  position: absolute;
+  inset: 0 var(--s-3);
+  border-top: 1px solid var(--line);
+  pointer-events: none;
+}
+
+.drop[data-collapsed='true']:not(:has(+ .drop[data-collapsed='true']))::after {
+  border-bottom: 1px solid var(--line);
+}
+
+.category-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.category-toggle:hover {
+  color: var(--ink-2);
+}
+
+.category-toggle__chevron {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--ink-3);
+  border-bottom: 2px solid var(--ink-3);
+  transform: rotate(-45deg);
+  transition: transform 0.15s;
+}
+
+.category-toggle[aria-expanded='true'] .category-toggle__chevron,
+.category-toggle__chevron[data-collapsed='false'] {
+  transform: rotate(45deg);
+}
+
+/* While a category is dragged: its section fades, a line shows where it will
+   land (centred in the gap between sections) and its heading follows the pointer */
+.drop[data-lifted='true'] {
+  opacity: 0.35;
+}
+
+.drop[data-insert] {
+  position: relative;
+}
+
+.drop[data-insert]::before {
+  content: "";
+  position: absolute;
+  left: var(--s-3);
+  right: var(--s-3);
+  height: 3px;
+  border-radius: var(--r-pill);
+  background: var(--ink-2);
+}
+
+.drop[data-insert='before']::before {
+  top: calc((var(--s-7) - var(--s-3)) / -2 - 3px);
+}
+
+.page-head + .drop[data-insert='before']::before {
+  top: calc(var(--s-2) / -2 - 3px);
+}
+
+.drop[data-insert='after']::before {
+  bottom: calc((var(--s-7) - var(--s-3)) / -2 - 3px);
+}
+
+.category-ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  margin: calc(var(--s-3) * -1) calc(var(--s-4) * -1);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-md);
+  box-shadow: 0 24px 48px -12px rgb(0 0 0 / 0.65);
+  pointer-events: none;
+}
+
 .detail__note {
   color: var(--ink-2);
   white-space: pre-line;

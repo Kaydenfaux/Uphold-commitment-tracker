@@ -28,6 +28,25 @@ export function dropSpotAt(x, y) {
   return { categoryId, beforeId: null }
 }
 
+const CATEGORY = '[data-drop-category]:not([data-drop-category=""])'
+
+/**
+ * The category a dragged category would land before, or null for the end.
+ * Only the pointer's height matters: it goes before the first other category
+ * whose middle is below the pointer.
+ * @param {number} y @param {string} draggedId
+ * @returns {string | null}
+ */
+export function categorySpotAt(y, draggedId) {
+  for (const el of document.querySelectorAll(CATEGORY)) {
+    const id = el.getAttribute('data-drop-category')
+    if (id === draggedId) continue
+    const r = el.getBoundingClientRect()
+    if (y < r.top + r.height / 2) return id
+  }
+  return null
+}
+
 /**
  * Where a box currently sits, so it can go back there.
  * @param {Element} el any element inside the box

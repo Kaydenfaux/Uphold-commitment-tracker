@@ -4,7 +4,9 @@ import { compareByOrder } from '../../lib/sort.js'
 import { useStore } from '../../store/useStore.js'
 import { AddCommitmentButton } from './AddCommitmentButton.jsx'
 import { CategoryDialog } from './CategoryDialog.jsx'
+import { CategorySection } from './CategorySection.jsx'
 import { CommitmentGrid } from './CommitmentGrid.jsx'
+import { CategoryGhost } from './drag/CategoryGhost.jsx'
 import { DragProvider } from './drag/DragProvider.jsx'
 import { DropZone } from './drag/DropZone.jsx'
 
@@ -28,7 +30,7 @@ export function CommitmentsView() {
           <h1 className="page-title">Commitments</h1>
           <p className="page-intro">
             Things you’ve committed to and will uphold. Each one stays here until you’ve completed it.
-            {' Drag a box to reorder it or move it to another category.'}
+            {' Drag a box to reorder it or move it to another category. Drag a category’s name to move the whole category, or click it to open or close it.'}
           </p>
         </div>
         <div className="section-head__actions">
@@ -39,32 +41,16 @@ export function CommitmentsView() {
         </div>
       </header>
 
-      {state.categories.map((category) => {
-        const items = active.filter((c) => c.categoryId === category.id)
-        const headingId = `category-${category.id}`
-        return (
-          <DropZone key={category.id} categoryId={category.id} labelledBy={headingId}>
-            <div className="section-head">
-              <h2 id={headingId} className="section-title">
-                {category.name}
-                <span className="section-title__count">{items.length}</span>
-              </h2>
-              <div className="section-head__actions">
-                <button type="button" className="btn btn--quiet btn--sm" onClick={() => setEditingCategory(category)}>
-                  Edit
-                </button>
-                {items.length > 0 && <AddCommitmentButton categoryId={category.id} label="Add" />}
-              </div>
-            </div>
-            <CommitmentGrid
-              items={items}
-              categoryId={category.id}
-              emptyLabel={`Add a commitment to ${category.name}`}
-              sortable
-            />
-          </DropZone>
-        )
-      })}
+      {state.categories.map((category, i) => (
+        <CategorySection
+          key={category.id}
+          category={category}
+          items={active.filter((c) => c.categoryId === category.id)}
+          isLast={i === state.categories.length - 1}
+          onEdit={() => setEditingCategory(category)}
+        />
+      ))}
+      <CategoryGhost />
 
       {/* Without any categories this is simply the list of commitments. While a
           box is dragged, "No category" shows even when empty so it can be dropped on. */}

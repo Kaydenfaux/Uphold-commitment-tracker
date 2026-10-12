@@ -121,7 +121,7 @@ export function normalizeState(data) {
       // Saved before categories were renamed from sections.
       categories: records(data.categories ?? data.sections)
         .filter((s) => typeof s.id === 'string' && typeof s.name === 'string')
-        .map((s) => ({ id: text(s.id), name: text(s.name) })),
+        .map((s) => ({ id: text(s.id), name: text(s.name), collapsed: s.collapsed === true })),
       commitments: records(data.commitments).filter(hasIdAndTitle).map(toCommitment),
       thoughts: records(data.thoughts)
         .filter((t) => typeof t.id === 'string' && typeof t.text === 'string')

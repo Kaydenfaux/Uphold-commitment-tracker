@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { isConsolidated } from '../../lib/model.js'
+import { TEXT_LIMIT, isConsolidated } from '../../lib/model.js'
 import { useStore } from '../../store/useStore.js'
+import { CharCount } from '../../ui/CharCount.jsx'
 import { Dialog } from '../../ui/Dialog.jsx'
 import { Field } from '../../ui/Field.jsx'
 import { useDeleteThought } from './useDeleteThought.js'
@@ -41,15 +42,26 @@ export function ThoughtDialog({ thought, onClose, onDeleted }) {
     <Dialog title={isNew ? 'Add a thought' : isNote ? 'Edit note' : 'Edit thought'} onClose={onClose}>
       <form className="form" onSubmit={handleSave}>
         {isNote && (
-          <Field label="Title">
-            <input className="input" required value={title} onChange={(e) => setTitle(e.target.value)} />
+          <Field label="Title" aside={<CharCount length={title.length} max={TEXT_LIMIT} />}>
+            <input
+              className="input"
+              required
+              maxLength={TEXT_LIMIT}
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </Field>
         )}
-        <Field label={isNote ? 'Note' : 'What’s on your mind?'}>
+        {/* A note's body is several thoughts merged together, so only loose thoughts are capped. */}
+        <Field
+          label={isNote ? 'Note' : 'What’s on your mind?'}
+          aside={!isNote && <CharCount length={text.length} max={TEXT_LIMIT} />}
+        >
           <textarea
             className="input"
             rows={isNote ? 8 : 4}
             required
+            maxLength={isNote ? undefined : TEXT_LIMIT}
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
